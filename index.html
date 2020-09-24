@@ -20,7 +20,42 @@
 </head>
 
 <body>
-	<div class="reveal">
+	<div id="setup">
+		<div id="setup_inner">
+			<style>
+				#setup_inner {
+					position: absolute;
+					left: 50%;
+					top: 50%;
+					transform: translate(-50%, -50%);
+					text-align: center;
+				}
+
+				#setup {
+					width: 100vw;
+					height: 100vh;
+					background-color: #191919;
+					font-family: 'Source Sans Pro', sans-serif;
+					color: #fff;
+				}
+
+				h1 {
+					font-size: 50px;
+				}
+
+				#shnp {
+					font-size: 25px;
+				}
+			</style>
+			<h1>Hello, chose your configuration and press start</h1>
+			<p id="shnp"><input id="notes" type="checkbox"> Show notes</p>
+			<br>
+			<button onclick="start()">Start</button>
+		</div>
+	</div>
+
+
+	<div id="reveal" class="reveal">
 		<div class="slides">
 			<section>
 				Hello World!
@@ -261,9 +296,17 @@
 
 				</div>
 				<aside class="notes">
+					As it turns out mass has 2 properties:
+					<br>
+					1) It resists acceleration
+					<br>
+					2) It creates and is affected by gravitational fields
+					<br>
+					<br>
+
 					Now, I will ignore the second property in this lecture because we do not have time to delve into
 					general relativity, but for argument's sake, please accept that the second property is an
-					eventuality of the first one. 
+					eventuality of the first one.
 					<br><br>
 					Put simply, the second property emerges from the first.
 				</aside>
@@ -467,22 +510,30 @@
 	<script src="plugin/math/math.js"></script>
 
 	<script>
-		// More info about initialization & config:
-		// - https://revealjs.com/initialization/
-		// - https://revealjs.com/config/
-		Reveal.initialize({
-			hash: true,
-			math: {
-				mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
-				config: 'TeX-AMS_HTML-full',
-				// pass other options into `MathJax.Hub.Config()`
-				TeX: { Macros: { RR: "{\\bf R}" } }
-			},
-			showNotes: true,
 
-			// Learn about plugins: https://revealjs.com/plugins/
-			plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath]
-		});
+		function start() {
+			let notes = document.getElementById("notes").checked;
+			document.getElementById("setup").hidden = true;
+			Reveal.initialize({
+				hash: true,
+				math: {
+					mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+					config: 'TeX-AMS_HTML-full',
+					// pass other options into `MathJax.Hub.Config()`
+					TeX: { Macros: { RR: "{\\bf R}" } }
+				},
+				showNotes: notes,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath]
+			});
+		}
+
+		if (window != window.top) { //detect speaker view preview
+			start();
+		}
+
+
 	</script>
 </body>
 
